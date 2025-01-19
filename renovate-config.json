@@ -6,5 +6,8 @@
             "groupName": "leptos monorepo",
             "matchSourceUrls": ["https://github.com/leptos-rs/leptos"]
         }
-    ]
+    ],
+    "pre-commit": {
+        "enabled": true
+    }
 }
