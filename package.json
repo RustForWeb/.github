@@ -1,7 +1,7 @@
 {
     "name": "@rustforweb/github",
     "description": "GitHub configuration files.",
-    "author": "Rust For Web <info@rustforweb.org>",
+    "author": "Rust for Web <info@rustforweb.org>",
     "repository": "github:RustForWeb/.github",
     "license": "MIT",
     "private": true,
