@@ -8,6 +8,10 @@
             "matchUpdateTypes": ["minor", "patch"]
         },
         {
+            "groupName": "dioxus monorepo",
+            "matchSourceUrls": ["https://github.com/DioxusLabs/dioxus"]
+        },
+        {
             "groupName": "leptos monorepo",
             "matchSourceUrls": ["https://github.com/leptos-rs/leptos"]
         }
