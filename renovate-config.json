@@ -14,6 +14,14 @@
         {
             "groupName": "leptos monorepo",
             "matchSourceUrls": ["https://github.com/leptos-rs/leptos"]
+        },
+        {
+            "groupName": "mdbook monorepo",
+            "matchSourceUrls": ["https://github.com/rust-lang/mdBook"]
+        },
+        {
+            "groupName": "yew monorepo",
+            "matchSourceUrls": ["https://github.com/yewstack/yew"]
         }
     ],
     "pre-commit": {
