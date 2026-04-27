@@ -8,6 +8,16 @@ on:
                 type: boolean
                 required: false
                 default: true
+            clean-options:
+                description: Options for `cargo clean`, only executed when options are specified.
+                type: string
+                required: false
+                default: ''
+            build-options:
+                description: Options for `cargo build`, only executed when options are specified.
+                type: string
+                required: false
+                default: ''
 
 permissions:
     contents: read
@@ -32,8 +42,16 @@ jobs:
             - name: Install mdBook
               run: cargo binstall --force -y mdbook mdbook-tabs mdbook-trunk
 
+            - name: Clean dependencies
+              if: ${{ inputs.clean-options != '' }}
+              run: cargo clean ${{ inputs.clean-options}}
+
+            - name: Build dependencies
+              if: ${{ inputs.build-options != '' }}
+              run: cargo build ${{ inputs.build-options }}
+
             - name: Run tests
-              run: mdbook test
+              run: mdbook test -L ../target/debug/deps
               working-directory: book
 
     build:
@@ -71,7 +89,7 @@ jobs:
               working-directory: book
 
             - name: Copy Book Output
-              if: ${{ inputs.combine == 'false' }})
+              if: ${{ inputs.combine == 'false' }}
               run: rm -rf dist && cp -r book dist
               working-directory: book
 
