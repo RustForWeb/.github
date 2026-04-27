@@ -1,0 +1,84 @@
+name: Rust
+
+on:
+    workflow_call:
+        inputs:
+            # Inputs for `actions-rust-lang/setup-rust-toolchain`.
+            # https://github.com/actions-rust-lang/setup-rust-toolchain/blob/main/action.yml
+            toolchain:
+                description: 'Comma-separated list of Rust toolchain specifications. Last version becomes the default. -- see https://rust-lang.github.io/rustup/concepts/toolchains.html#toolchain-specification'
+                type: string
+                required: false
+            target:
+                description: 'Target triple to install for this toolchain'
+                type: string
+                required: false
+
+permissions:
+    contents: read
+
+jobs:
+    lint:
+        name: Lint
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Set up Rust toolchain
+              uses: actions-rust-lang/setup-rust-toolchain@2b1f5e9b395427c92ee4e3331786ca3c37afe2d7 # v1.16.0
+              with:
+                  toolchain: ${{ inputs.toolchain }}
+                  target: ${{ inputs.target }}
+                  components: clippy
+
+            - name: Lint
+              run: cargo clippy --all-features --all-targets --locked
+
+    format:
+        name: Format
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Set up Rust toolchain
+              uses: actions-rust-lang/setup-rust-toolchain@2b1f5e9b395427c92ee4e3331786ca3c37afe2d7 # v1.16.0
+              with:
+                  toolchain: ${{ inputs.toolchain }}
+                  target: ${{ inputs.target }}
+                  components: rustfmt
+
+            - name: Install Cargo Binary Install
+              uses: cargo-bins/cargo-binstall@dc19f1e48450eefe5a29b8da6c6b00a87d730b37 # v1.18.1
+
+            - name: Install crates
+              run: cargo binstall -y --force cargo-sort
+
+            - name: Check manifest formatting
+              run: cargo sort --workspace --check
+
+            - name: Check formatting
+              run: cargo fmt --all --check
+
+    dependencies:
+        name: Dependencies
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Install Cargo Binary Install
+              uses: cargo-bins/cargo-binstall@dc19f1e48450eefe5a29b8da6c6b00a87d730b37 # v1.18.1
+
+            - name: Install crates
+              run: cargo binstall -y --force cargo-deny cargo-machete
+
+            - name: Check dependencies
+              run: cargo deny check
+
+            - name: Check unused dependencies
+              run: cargo machete --with-metadata
