@@ -84,12 +84,12 @@ jobs:
               working-directory: book
 
             - name: Combine Book Outputs
-              if: ${{ inputs.combine == 'true' }}
+              if: ${{ inputs.combine }}
               run: mdbook-trunk combine
               working-directory: book
 
             - name: Copy Book Output
-              if: ${{ inputs.combine == 'false' }}
+              if: ! ${{ inputs.combine }}
               run: rm -rf dist && cp -r book dist
               working-directory: book
 
