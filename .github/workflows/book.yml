@@ -89,7 +89,7 @@ jobs:
               working-directory: book
 
             - name: Copy Book Output
-              if: ! ${{ inputs.combine }}
+              if: ${{ inputs.combine == false }}
               run: rm -rf dist && cp -r book dist
               working-directory: book
 
