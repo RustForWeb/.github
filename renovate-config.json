@@ -12,6 +12,10 @@
             "matchSourceUrls": ["https://github.com/DioxusLabs/dioxus"]
         },
         {
+            "groupName": "hey-api monorepo",
+            "matchSourceUrls": ["https://github.com/hey-api/openapi-ts"]
+        },
+        {
             "groupName": "leptos monorepo",
             "matchSourceUrls": ["https://github.com/leptos-rs/leptos"]
         },
@@ -20,8 +24,32 @@
             "matchSourceUrls": ["https://github.com/rust-lang/mdBook"]
         },
         {
+            "groupName": "prettier",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": ["@trivago/prettier-plugin-sort-imports", "prettier", "prettier-*"]
+        },
+        {
+            "groupName": "rustcrypto",
+            "matchSourceUrls": ["https://github.com/RustCrypto/**"]
+        },
+        {
+            "groupName": "serde",
+            "matchDatasources": ["crate"],
+            "matchPackageNames": ["serde", "serde-*", "serde_*"]
+        },
+        {
+            "groupName": "tower-sessions",
+            "matchDatasources": ["crate"],
+            "matchPackageNames": ["tower-sessions", "tower-sessions-*"]
+        },
+        {
             "groupName": "yew monorepo",
             "matchSourceUrls": ["https://github.com/yewstack/yew"]
+        },
+        {
+            "groupName": "vite",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": ["@vitejs/*", "@vitest/*", "vite", "vite-*", "vitest"]
         }
     ],
     "pre-commit": {

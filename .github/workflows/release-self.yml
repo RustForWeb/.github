@@ -1,0 +1,30 @@
+name: Release Self
+
+on:
+    workflow_dispatch:
+        inputs:
+            bump:
+                description: 'Bump version by semver keyword.'
+                required: true
+                type: choice
+                options:
+                    - patch
+                    - minor
+                    - major
+
+permissions:
+    contents: write
+
+jobs:
+    release:
+        name: Release
+        uses: ./.github/workflows/release.yml
+        with:
+            bump: ${{ inputs.bump }}
+            bump-rust: false
+            bump-typescript: true
+            bump-typescript-tool: 'npm'
+            extract-version: 'typescript'
+        secrets:
+            app-client-id: ${{ secrets.APP_ID }}
+            app-private-key: ${{ secrets.APP_PRIVATE_KEY }}
