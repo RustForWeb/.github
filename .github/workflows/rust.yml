@@ -3,6 +3,32 @@ name: Rust
 on:
     workflow_call:
         inputs:
+            if:
+                description: Whether to run the jobs.
+                type: boolean
+                required: false
+                default: true
+            runs-on:
+                description: The type of machine to run the job on.
+                type: string
+                required: false
+                default: ubuntu-latest
+
+            enable-lint:
+                description: Enable lint job.
+                type: boolean
+                required: false
+                default: true
+            enable-format:
+                description: Enable format job.
+                type: boolean
+                required: false
+                default: true
+            enable-dependencies:
+                description: Enable dependencies job.
+                type: boolean
+                required: false
+                default: true
             enable-test:
                 description: Enable test job.
                 type: boolean
@@ -26,7 +52,8 @@ permissions:
 jobs:
     lint:
         name: Lint
-        runs-on: ubuntu-latest
+        if: ${{ inputs.if && inputs.enable-lint }}
+        runs-on: ${{ inputs.runs-on }}
 
         steps:
             - name: Checkout
@@ -44,7 +71,8 @@ jobs:
 
     format:
         name: Format
-        runs-on: ubuntu-latest
+        if: ${{ inputs.if && inputs.enable-format }}
+        runs-on: ${{ inputs.runs-on }}
 
         steps:
             - name: Checkout
@@ -71,11 +99,18 @@ jobs:
 
     dependencies:
         name: Dependencies
-        runs-on: ubuntu-latest
+        if: ${{ inputs.if && inputs.enable-dependencies }}
+        runs-on: ${{ inputs.runs-on }}
 
         steps:
             - name: Checkout
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Set up Rust toolchain
+              uses: actions-rust-lang/setup-rust-toolchain@46268bd060767258de96ed93c1251119784f2ab6 # v1.16.1
+              with:
+                  toolchain: ${{ inputs.toolchain }}
+                  target: ${{ inputs.target }}
 
             - name: Install Cargo Binary Install
               uses: cargo-bins/cargo-binstall@aaa84a43aec4955a42c5ffc65d258961e39f276e # v1.19.1
@@ -91,8 +126,8 @@ jobs:
 
     test:
         name: Test
-        runs-on: ubuntu-latest
-        if: ${{ inputs.enable-test }}
+        if: ${{ inputs.if && inputs.enable-test }}
+        runs-on: ${{ inputs.runs-on }}
 
         steps:
             - name: Checkout
