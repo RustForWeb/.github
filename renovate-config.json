@@ -3,6 +3,9 @@
     "extends": ["config:recommended", "schedule:weekly", ":prConcurrentLimitNone", ":prHourlyLimitNone"],
     "packageRules": [
         {
+            "minimumReleaseAge": "7 days"
+        },
+        {
             "automerge": true,
             "matchCurrentVersion": "!/^0/",
             "matchUpdateTypes": ["minor", "patch"]
