@@ -44,7 +44,7 @@ jobs:
 
             - name: Clean dependencies
               if: ${{ inputs.clean-options != '' }}
-              run: cargo clean ${{ inputs.clean-options}}
+              run: cargo clean ${{ inputs.clean-options }}
 
             - name: Build dependencies
               if: ${{ inputs.build-options != '' }}
