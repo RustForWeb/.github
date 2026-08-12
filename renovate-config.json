@@ -5,10 +5,12 @@
         "schedule:weekly",
         ":prConcurrentLimitNone",
         ":prHourlyLimitNone",
-        ":semanticCommits"
+        ":semanticCommits",
+        ":semanticCommitTypeAll(build)"
     ],
     "packageRules": [
         {
+            "matchPackageNames": ["*"],
             "minimumReleaseAge": "7 days"
         },
         {
