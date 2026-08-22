@@ -84,7 +84,7 @@ jobs:
             - name: Extract Rust version
               if: ${{ inputs.extract-version == 'rust' }}
               id: extract-rust-version
-              run: echo "VERSION=v$(toml get Cargo.toml workspace.package.version --raw)" >> "$GITHUB_OUTPUT"
+              run: echo "VERSION=v$(toml get Cargo.toml workspace.package.version --raw || toml get Cargo.toml package.version --raw) " >> "$GITHUB_OUTPUT"
 
             - name: Set up Node.js
               if: ${{ inputs.bump-typescript }}
