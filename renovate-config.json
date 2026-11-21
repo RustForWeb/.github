@@ -23,6 +23,19 @@
             "matchSourceUrls": ["https://github.com/DioxusLabs/dioxus"]
         },
         {
+            "groupName": "eslint",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": [
+                "@eslint/*",
+                "@types/eslint-*",
+                "@typescript-eslint/*",
+                "eslint",
+                "eslint-*",
+                "!eslint-plugin-*",
+                "typescript-eslint"
+            ]
+        },
+        {
             "groupName": "hey-api monorepo",
             "matchSourceUrls": ["https://github.com/hey-api/openapi-ts"]
         },
@@ -49,6 +62,23 @@
             "matchPackageNames": ["serde", "serde-*", "serde_*"]
         },
         {
+            "groupName": "shield monorepo",
+            "matchSourceUrls": ["https://github.com/RustForWeb/shield"]
+        },
+        {
+            "groupName": "tower-sessions",
+            "matchDatasources": ["crate"],
+            "matchPackageNames": ["tower-sessions", "tower-sessions-*"]
+        },
+        {
+            "groupName": "utoipa monorepo",
+            "matchSourceUrls": ["https://github.com/juhaku/utoipa"]
+        },
+        {
+            "groupName": "rustcrypto",
+            "matchSourceUrls": ["https://github.com/RustCrypto/**"]
+        },
+        {
             "groupName": "tower-sessions",
             "matchDatasources": ["crate"],
             "matchPackageNames": ["tower-sessions", "tower-sessions-*"]
@@ -60,7 +90,12 @@
         {
             "groupName": "vite",
             "matchDatasources": ["npm"],
-            "matchPackageNames": ["@vitejs/*", "@vitest/*", "vite", "vite-*", "vitest"]
+            "matchPackageNames": ["@vitejs/*", "vite", "vite-*"]
+        },
+        {
+            "groupName": "vitest",
+            "matchDatasources": ["npm"],
+            "matchPackageNames": ["@vitest/*", "vitest"]
         }
     ],
     "pre-commit": {
