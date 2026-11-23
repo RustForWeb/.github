@@ -8,6 +8,28 @@
         ":semanticCommits",
         ":semanticCommitTypeAll(build)"
     ],
+    "customManagers": [
+        {
+            "customType": "regex",
+            "managerFilePatterns": ["/(^|/)Dockerfile[^/]*$/"],
+            "matchStrings": [
+                "cargo-bins/cargo-binstall/(?<currentValue>v\\d[^/\\s]*)/install-from-binstall-release\\.sh[^\\n]*?\\| BINSTALL_VERSION=v\\d[^\\s]* bash"
+            ],
+            "autoReplaceStringTemplate": "cargo-bins/cargo-binstall/{{{newValue}}}/install-from-binstall-release.sh | BINSTALL_VERSION={{{newValue}}} bash",
+            "depNameTemplate": "cargo-bins/cargo-binstall",
+            "datasourceTemplate": "github-releases",
+            "versioningTemplate": "semver"
+        },
+        {
+            "customType": "regex",
+            "managerFilePatterns": ["/(^|/)Dockerfile[^/]*$/", "/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/"],
+            "matchStringsStrategy": "recursive",
+            "matchStrings": ["cargo binstall[^\\n]*", "(?<depName>[a-z0-9_-]+)@(?<currentValue>\\d[\\w.+-]*)"],
+            "datasourceTemplate": "crate",
+            "versioningTemplate": "semver"
+        }
+    ],
+    "osvVulnerabilityAlerts": true,
     "packageRules": [
         {
             "matchPackageNames": ["*"],

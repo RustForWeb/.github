@@ -6,3 +6,10 @@ repos:
             language: node
             additional_dependencies:
                 - prettier@^3.5.3
+
+    - repo: https://github.com/renovatebot/pre-commit-hooks
+      rev: 44.257.9
+      hooks:
+          - id: renovate-config-validator
+            args: ['--strict']
+            files: '(^|/).?renovate(?:rc|-config)?(?:\.json[c5]?)?$'
