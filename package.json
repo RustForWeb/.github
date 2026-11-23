@@ -8,7 +8,8 @@
     "private": true,
     "scripts": {},
     "devDependencies": {
-        "prettier": "^3.5.3"
+        "prettier": "^3.5.3",
+        "renovate": "^44.258.0"
     },
     "engines": {
         "node": ">=24"
